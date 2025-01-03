@@ -1,0 +1,36 @@
+name: ha-influx-grafana
+
+services:
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:2
+    restart: unless-stopped
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    environment:
+      - name=value
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUX_HA_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUX_HA_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUX_HA_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUX_HA_BUCKET}
+    ports:
+      - "8086:8086"
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    volumes: 
+      - grafana:/var/lib/grafana
+    depends_on:
+      - influxdb
+    ports:
+      - "3000:3000"
+
+volumes:
+  influxdb-data:
+  influxdb-config:
+  grafana:
