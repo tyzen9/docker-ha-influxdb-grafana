@@ -20,7 +20,7 @@ This `docker-compose` implementation is configured using the `environment` secti
 
 If you are interested in working with this compose stack and making adjustments for your environment, then:
 
-1. Clone this repository: `git clone https://github.com/tyzen9/docker-diun.git`
+1. Clone this repository: `git clone https://github.com/tyzen9/docker-ha-influxdb-grafana.git`
 1. Set the configuration options as desired in the `docker-compose.yaml` and `.env` files.
 1. Navigate to the project's root directory and run the following command:
 
