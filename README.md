@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/home-assistant-wordmark-color-on-dark.png" height="35">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <img src="images/InfluxDB_Logo.png" height="35">&nbsp;&nbsp;  <img src="images/grafana-logo.png" height="35" style="padding-left: 25px">  
+<img src="images/home-assistant-wordmark-color-on-dark.png" height="35">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="images/InfluxDB_Logo.png" height="35">&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/grafana-logo.png" height="35" style="padding-left: 25px">  
 </p> 
 
 # <img src="images/t9_logo.png" height="25"> Tyzen9 - InfluxDB and Grafana in Home Assistant
@@ -141,19 +141,30 @@ After you have restarted Home Assistant, return to the InfluxDB application and 
 
 <img src="images/influxdb/influxdb_4.png" width="500" style="padding-left: 40px">
 
+<br><br>
+<img src="images/grafana-logo.png#" height="25"> 
 
-# Connecting Grafana
+# Grafana Configuration
 
-1. Visit Grafana at http://localhost:3000
-1. Login with the username: `admin` and password: `admin`
-1. If this is your first login, set the new `admin` password and click `submit`
+### Connecting to InfluxDB
+
+1. Login to Grafada with the username: `admin` and password: `admin`
+1. Set the new `admin` password and click `submit`
 1. In the left menu select `Connections` and `Add new connection`
 1. Choose `InfluxDB` from the extensive list to the right
+
+<img src="images/grafana/grafana_1.png" width="500" style="padding-left: 40px">
+
+
 1. In the upper right choose `Add new data source`
 1. At the top, give this connection a name
 1. In the `Query language` section: choose `Flux` as the query language
 1. In the `HTTP` Section: Populate the URL to InfluxDB (in this example this is http://localhost:8086/)
 1. In the `InfluxDB Details` setion, enter the `Organization` the `Token` and the `Default Bucket` name.
-1. Click `Save & test` and hopefully all is well
 
+<img src="images/grafana/grafana_2.png" width="500" style="padding-left: 40px">
+
+6. Click `Save & test` 
+
+<img src="images/grafana/grafana_3.png" width="500" style="padding-left: 40px">
 
