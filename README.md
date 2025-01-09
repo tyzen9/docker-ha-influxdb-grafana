@@ -3,7 +3,7 @@
 </p> 
 
 # <img src="images/t9_logo.png" height="25"> Tyzen9 - InfluxDB and Grafana in Home Assistant
-This compose stack provides InfluxDB and Grafana support, and is specifically targeted for use with Home Assistant.  
+This compose stack provides InfluxDB and Grafana support. This README is specifically targeted for use with Home Assistant.  
 
 ## Prerequisites
 Install [Docker Engine](https://docs.docker.com/get-docker/) or [Docker Desktop](https://docs.docker.com/desktop/) if you require the Docker user interface.  In production it's generally best to use [Docker Engine](https://docs.docker.com/get-docker/) on a Linux host operating system, and a lightweight service delivery platform designed for managing containerized applications such as [Portainer](https://www.portainer.io/)
@@ -78,6 +78,7 @@ Make the following configuration changes:
 1. Using the [InfluxDB Integration guide](https://www.home-assistant.io/integrations/influxdb/), enter the following as a starting point for the InfluxDB 2.0 configuration. Make sure to substitute the appropriate values from the `.env` file used in the Docker configuration in for the square brackets.
 1. You will need to restart Home Assistant to make these changes effective and start sending data to InfluxDB.
 
+⚠️ I highly encourage the use of [Home Assistant secrets](https://www.home-assistant.io/docs/configuration/secrets/) for storing and utilizing the InfluxDB token.
 
 ```yaml
 influxdb:
@@ -168,3 +169,6 @@ After you have restarted Home Assistant, return to the InfluxDB application and 
 
 <img src="images/grafana/grafana_3.png" width="500" style="padding-left: 40px">
 
+# Conclusion
+
+Creating an InfluxDB query and adding it to Grafana exceeds the scope of this README. For more information, please see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/query-editor/) regarding its Query Editor, and building dashboards.
