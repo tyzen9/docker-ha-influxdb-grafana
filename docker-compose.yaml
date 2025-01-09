@@ -17,7 +17,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUX_HA_ORG}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUX_HA_BUCKET}
     ports:
-      - "8086:8086"
+      - "${INFLUX_EXTERNAL_PORT_NUMBER}:8086"
 
   grafana:
     container_name: grafana
@@ -28,7 +28,7 @@ services:
     depends_on:
       - influxdb
     ports:
-      - "3000:3000"
+      - "${GRAFANA_EXTERNAL_PORT_NUMBER}:3000"
 
 volumes:
   influxdb-data:
