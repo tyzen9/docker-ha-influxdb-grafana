@@ -1,9 +1,9 @@
-<!-- <p align="center">
-  <img src="https://crazymax.dev/diun/assets/meta/card.png" alt="Diun Logo" height="200"/>
-</p> -->
+<p align="center">
+<img src="images/home-assistant-wordmark-color-on-dark.png" height="35" > <img src="images/InfluxDB_Logo.png" height="35" style="padding-left: 25px"> <img src="images/grafana-logo.png" height="35" style="padding-left: 25px">  
+</p> 
 
-# <img src="images/t9_logo.png" height="25"> Tyzen9's InfluDB and Grafana
-This compose stack provides InfluDB and Grafana support, and is specifically targeted for use with Home Assistant.  
+# <img src="images/t9_logo.png" height="25"> Tyzen9 - InfluxDB and Grafana in Home Assistant
+This compose stack provides InfluxDB and Grafana support, and is specifically targeted for use with Home Assistant.  
 
 ## Prerequisites
 Install [Docker Engine](https://docs.docker.com/get-docker/) or [Docker Desktop](https://docs.docker.com/desktop/) if you require the Docker user interface.  In production it's generally best to use [Docker Engine](https://docs.docker.com/get-docker/) on a Linux host operating system, and a lightweight service delivery platform designed for managing containerized applications such as [Portainer](https://www.portainer.io/)
@@ -13,7 +13,9 @@ This documentation assumes you have a working knowledge of [Docker](https://www.
 ## Container Configuration
 This `docker-compose` implementation is configured using the `environment` section(s) of the `docker-compose.yaml` file.  The values between the `${}` characters are substituted from the `.env` file.  
 
-⚠️ It is important that you populate the `.env` file values with those appropriate for your environment. 
+### ⚠️ NOTE
+1. It is important that you populate the `.env` file values with those appropriate for your environment. 
+1. I have experience issues when using special characters in the initial InfluxDB password
 
 ## Deployment
 ### Local deployment
@@ -43,18 +45,39 @@ I use [Portainer](https://www.portainer.io/) to manage and orchestrate my Docker
 If everything works as expected, you should be able to access InfluxDB at http://portainer_hostname:8086 and Grafana at http://portainer_hostname:3000
 
 
-## InfluxDB Configuration
 
-## Preparing for HA Connection
+<img src="images/InfluxDB_Logo.png" height="25"> 
+
+## InfluxDB Configuration 
+
+
+
+### Preparing for HA Connection
 1. Log into InfluxDB using the username and password as defined in the `.env` file
 1. Click the `Load Data` option on the left, and choose `API Tokens`
-1. Click `Generate API Token` and choose `All Access API Token`
+1. Click `Generate API Token` 
+1. Choose `All Access API Token`
+
+<img src="images/influxdb/influxdb_1.png" height="260" style="padding-left: 40px">
+
 1. Give the token a description, and click `SAVE`
+
+<img src="images/influxdb/influxdb_2.png" height="200" style="padding-left: 40px">
+
 1. Copy the resulting `API token string` someplace safe, as you will not be able to access it again
 
-## Connecting HA to InfluxDB
-1. Open the `configuration.yaml` file in HA
-1. Using the [InfluxDB Ingration guide](https://www.home-assistant.io/integrations/influxdb/), enter the following as a starting point for the InfluxDB 2.0 configuration. Make sure to substitute the appropriate values in for the square brackets.
+<img src="images/influxdb/influxdb_3.png" height="170" style="padding-left: 40px">
+
+### Connecting HA to InfluxDB
+Connecting InfluxDB to Home Assistant is simple, but does require some [changes to the Home Assistant configuration](https://www.home-assistant.io/docs/configuration/). 
+
+📢 The influxdb database integration runs parallel to the Home Assistant database, it does NOT replace it.
+
+Make the following configuration changes:
+1. Open the `configuration.yaml` file in Home Assistant
+1. Using the [InfluxDB Integration guide](https://www.home-assistant.io/integrations/influxdb/), enter the following as a starting point for the InfluxDB 2.0 configuration. Make sure to substitute the appropriate values from the `.env` file used in the Docker configuration in for the square brackets.
+1. You will need to restart Home Assistant to make these changes effective and start sending data to InfluxDB.
+
 
 ```yaml
 influxdb:
@@ -84,8 +107,11 @@ influxdb:
     entities:
       - weather.home
 ```
+
 ### Finite control
-It is possible to be very specific about individual entities that pushed to InfluxDB.  This may be desireable should you wish to control the size and content of your influxDB.  In the example below, I am only allowing for the dryer's exhaust temperature to be pushed to InfluxDB, and will need to add other sensors and restart HA as needed.  The absense of an `exclude` option, tells Home Assistant to ONLY send the items listed in the `include` configuration.
+It is possible to be very specific about individual entities that pushed to InfluxDB.  This may be desirable should you wish to control the size and content of your influxDB.  In the example below, I am only allowing for the dryer's exhaust temperature to be pushed to InfluxDB. Each time you update the configuration, you will need to restart Home Assistant to make themeffective.
+
+📢 The absence of an `exclude` option when using `include`, tells Home Assistant to ONLY send the items listed in the `include` configuration.
 
 ```yaml
 influxdb:
@@ -105,6 +131,16 @@ influxdb:
     entities:
       - sensor.sensor_tumbledryer_dryer_exhaust_temperature
 ```
+
+## Testing InfluxDB with Home Assistant
+After you have restarted Home Assistant, return to the InfluxDB application and log in.
+
+1. Click on `Data Explorer` in the menu
+1. Select `homeassistant` in the `FROM` dialog
+1. Set the Filter to `friendly_name`, and you should see a list of your devices that have recorded data into InfluxDB.
+
+<img src="images/influxdb/influxdb_4.png" width="500" style="padding-left: 40px">
+
 
 # Connecting Grafana
 
