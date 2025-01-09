@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/home-assistant-wordmark-color-on-dark.png" height="35" > <img src="images/InfluxDB_Logo.png" height="35" style="padding-left: 25px"> <img src="images/grafana-logo.png" height="35" style="padding-left: 25px">  
+<img src="images/home-assistant-wordmark-color-on-dark.png" height="35">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <img src="images/InfluxDB_Logo.png" height="35">&nbsp;&nbsp;  <img src="images/grafana-logo.png" height="35" style="padding-left: 25px">  
 </p> 
 
 # <img src="images/t9_logo.png" height="25"> Tyzen9 - InfluxDB and Grafana in Home Assistant
